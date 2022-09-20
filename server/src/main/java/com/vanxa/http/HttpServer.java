@@ -1,6 +1,6 @@
-package http.server;
+package com.vanxa.http;
 
-import http.common.Config;
+import com.vanxa.http.common.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +11,7 @@ import java.net.Socket;
 import java.security.KeyStore;
 import java.util.Locale;
 
-import static http.common.Config.LISTEN_PORT;
+import static com.vanxa.http.common.Config.LISTEN_PORT;
 
 /**
  * @author Ivan Konstantinov (ikonstantino@vmware.com)
@@ -35,8 +35,7 @@ public class HttpServer {
             // Get the keystore
             log.info("Initializing stores and loading the server certificate");
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
-            InputStream inputStream = ClassLoader.getSystemClassLoader()
-                    .getResourceAsStream("server/" + config.getServerCertificateFile());
+            InputStream inputStream = config.loadCertificate();
             keyStore.load(inputStream, "".toCharArray());
 
 

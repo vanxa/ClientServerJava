@@ -1,9 +1,9 @@
-package http.common;
+package com.vanxa.http.common;
 
-import http.server.HttpServer;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -20,7 +20,7 @@ public class Config {
 
     public Config(String app) throws IOException {
         Properties props = new Properties();
-        props.load(HttpServer.class.getResourceAsStream(String.format("/%s/app.properties", app)));
+        props.load(Config.class.getResourceAsStream(String.format("/%s/app.properties", app)));
 
         serverCertificateFile = props.getProperty("certificate.file");
         cipherSuites = StringUtils.isNotEmpty(props.getProperty("tls.ciphers", "")) ?
@@ -32,7 +32,7 @@ public class Config {
     }
 
     public static Config load(String client) throws IOException {
-        return new Config("client");
+        return new Config(client);
     }
 
     public String getServerCertificateFile() {
@@ -49,5 +49,10 @@ public class Config {
 
     public String[] getAlgorithms() {
         return algorithms;
+    }
+
+    public InputStream loadCertificate() {
+        return getClass().getClassLoader().getResourceAsStream("certs/" + getServerCertificateFile());
+
     }
 }

@@ -1,3 +1,4 @@
-include 'tls'
-include 'brokenapp'
+include 'common'
+include 'client'
+include 'server'
 

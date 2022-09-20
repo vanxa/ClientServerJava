@@ -1,6 +1,6 @@
-package http.client;
+package com.vanxa.http.client;
 
-import http.common.Config;
+import com.vanxa.http.common.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +12,8 @@ import java.security.cert.CertificateException;
 import java.util.Locale;
 import java.util.Scanner;
 
-import static http.common.Config.LISTEN_PORT;
+import static com.vanxa.http.common.Config.LISTEN_PORT;
+
 
 public class HttpClient {
 
@@ -38,8 +39,7 @@ public class HttpClient {
             KeyStore trustStore = KeyStore.getInstance("PKCS12");
             String password2 = "";
 
-            InputStream inputStream1 = ClassLoader.getSystemClassLoader()
-                    .getResourceAsStream("server/" + config.getServerCertificateFile());
+            InputStream inputStream1 = config.loadCertificate();
             trustStore.load(inputStream1, password2.toCharArray());
             trustManagerFactory.init(trustStore);
         } else {

@@ -1,0 +1,8 @@
+plugins {
+    id 'application'
+}
+
+mainClassName = "com.vanxa.http.HttpServer"
+dependencies {
+    implementation project(":common")
+}
